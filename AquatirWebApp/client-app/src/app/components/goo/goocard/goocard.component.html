@@ -1,0 +1,18 @@
+<div class="goo-form">
+  <mat-form-field class="goo-full-width">
+    <mat-label>Наименование товара</mat-label>
+    <input matInput autocomplete="off" [(ngModel)]="gooName">
+  </mat-form-field>
+  <div>
+    <div class="d-inline float-right ml-1 mb-1">
+      <a mat-mini-fab color="primary" routerLink="/goo" aria-label="Отменить">
+        <mat-icon>close</mat-icon>
+      </a>
+    </div>
+    <div class="d-inline float-right mb-1">
+      <a mat-mini-fab color="primary" routerLink="/goo" (click)="Add()" aria-label="Добавить">
+        <mat-icon>check</mat-icon>
+      </a>
+    </div>
+  </div>
+</div>
