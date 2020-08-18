@@ -15,10 +15,16 @@ export class GooComponent implements OnInit {
   constructor(private gooService: GooService) {}
 
   ngOnInit(): void {
-    this.dataSource = this.gooService.getGoo();
+    this.refresh();
   }
 
   delete(id: number): void {
-    this.gooService.deleteGoo(id).subscribe();
+    this.gooService.deleteGoo(id).subscribe(() => {
+      this.refresh();
+    });
+  }
+
+  refresh(): void {
+    this.dataSource = this.gooService.getGoo();
   }
 }

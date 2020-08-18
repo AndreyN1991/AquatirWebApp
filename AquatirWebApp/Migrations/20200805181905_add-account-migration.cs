@@ -11,7 +11,7 @@ namespace AquatirWebApp.Migrations
                 columns: table => new
                 {
                     AccountId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("SqlServer:Identity", "100, 1"),
                     uGoo = table.Column<int>(nullable: false),
                     AccountName = table.Column<string>(nullable: true)
                 },
