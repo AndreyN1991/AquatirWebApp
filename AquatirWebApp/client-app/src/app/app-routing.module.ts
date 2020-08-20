@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { AccountsComponent } from './components/accounts/accounts.component';
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { HomeComponent } from './components/home/home.component';
@@ -12,7 +11,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./components/goo/goo.module').then((m) => m.GooModule),
   },
-  { path: 'accounts', component: AccountsComponent },
+  {
+    path: 'accounts',
+    loadChildren: () =>
+      import('./components/accounts/accounts.module').then(
+        (m) => m.AccountsModule
+      ),
+  },
   { path: 'transactions', component: TransactionsComponent },
   { path: 'reports', component: ReportsComponent },
 ];

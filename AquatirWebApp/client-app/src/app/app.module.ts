@@ -7,17 +7,14 @@ import { MaterialContainerModule } from './modules/material-container/material-c
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { AccountsComponent } from './components/accounts/accounts.component';
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { HomeComponent } from './components/home/home.component';
-
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    AccountsComponent,
     TransactionsComponent,
     ReportsComponent,
     HomeComponent,

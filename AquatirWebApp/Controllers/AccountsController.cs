@@ -25,7 +25,10 @@ namespace AquatirWebApp.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Account>>> GetAccounts()
         {
-            return await _context.Accounts.ToListAsync();
+            return await _context.Accounts.Join(_context.Goos,
+                                                x => x.uGoo,
+                                                y => y.uGoo,
+                                                (x, y) => new Account { AccountId = x.AccountId, AccountName = x.AccountName, uGoo = x.uGoo, wrGoo = y }).ToListAsync();
         }
 
         // GET: api/Accounts/5
