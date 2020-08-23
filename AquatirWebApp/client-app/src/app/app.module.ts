@@ -7,7 +7,6 @@ import { MaterialContainerModule } from './modules/material-container/material-c
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { TransactionsComponent } from './components/transactions/transactions.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { HomeComponent } from './components/home/home.component';
 
@@ -15,7 +14,6 @@ import { HomeComponent } from './components/home/home.component';
   declarations: [
     AppComponent,
     MenuComponent,
-    TransactionsComponent,
     ReportsComponent,
     HomeComponent,
   ],

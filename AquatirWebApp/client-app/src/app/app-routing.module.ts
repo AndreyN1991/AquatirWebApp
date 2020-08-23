@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { TransactionsComponent } from './components/transactions/transactions.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { HomeComponent } from './components/home/home.component';
 
@@ -18,7 +17,13 @@ const routes: Routes = [
         (m) => m.AccountsModule
       ),
   },
-  { path: 'transactions', component: TransactionsComponent },
+  {
+    path: 'transactions',
+    loadChildren: () =>
+      import('./components/transactions/transactions.module').then(
+        (m) => m.TransactionsModule
+      ),
+  },
   { path: 'reports', component: ReportsComponent },
 ];
 

@@ -32,7 +32,10 @@ namespace AquatirWebApp.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Transaction>> GetTransaction(int id)
         {
-            var transaction = await _context.Transactions.FindAsync(id);
+            var transaction = await _context.Transactions.Join(_context.Accounts,
+                                                               x => x.AccountId,
+                                                               y => y.AccountId,
+                                                               (x, y) => new Transaction { AccountId = x.AccountId, Accounts = y, Ammount = x.Ammount, IO = x.IO, TransactionDate = x.TransactionDate, TransactionId = x.TransactionId }).Where(x => x.TransactionId == id).FirstAsync();
 
             if (transaction == null)
             {

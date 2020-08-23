@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { trigger, transition, useAnimation } from '@angular/animations';
+import { zoomIn } from 'ng-animate';
 
 import { GooService, Goo, Account } from 'src/app/services/goo.service';
 
@@ -9,6 +11,14 @@ import { GooService, Goo, Account } from 'src/app/services/goo.service';
   selector: 'app-acount',
   templateUrl: './acount.component.html',
   styleUrls: ['./acount.component.css'],
+  animations: [
+    trigger('zoomAnimation', [
+      transition(
+        'void => *',
+        useAnimation(zoomIn, { params: { timing: 0.3 } })
+      ),
+    ]),
+  ],
 })
 export class AcountComponent implements OnInit {
   @Output() onAdd: EventEmitter<Account> = new EventEmitter<Account>();
@@ -16,7 +26,6 @@ export class AcountComponent implements OnInit {
   myControl = new FormControl();
   filteredOptions: Observable<string[]>;
   dataOptions: Goo[];
-  account: Account;
 
   constructor(private gooService: GooService) {}
 
@@ -47,7 +56,7 @@ export class AcountComponent implements OnInit {
         .postAccount({
           uGoo: this.dataOptions.find((x) => x.cGoo === this.myControl.value)
             .uGoo,
-          AccountName: this.accountName,
+          accountName: this.accountName,
         })
         .subscribe((acc) => {
           this.onAdd.emit(acc);

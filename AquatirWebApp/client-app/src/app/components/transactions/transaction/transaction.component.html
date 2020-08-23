@@ -2,8 +2,8 @@
   <mat-form-field class="goo-full-width">
     <input
       type="text"
-      placeholder="Товар"
-      aria-label="Товар"
+      placeholder="Счет"
+      aria-label="Счет"
       matInput
       [formControl]="myControl"
       [matAutocomplete]="auto"
@@ -17,16 +17,26 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <mat-form-field class="goo-full-width">
-    <mat-label>Наименование счета</mat-label>
-    <input matInput autocomplete="off" [(ngModel)]="accountName" />
+  <mat-radio-group aria-label="Выберите тип операции" [(ngModel)]="ioGroup">
+    <mat-radio-button [value]="1">Приход</mat-radio-button>
+    <mat-radio-button [value]="2">Расход</mat-radio-button>
+  </mat-radio-group>
+  <mat-form-field class="goo-full-width mt-1">
+    <mat-label>Сумма операции</mat-label>
+    <input matInput autocomplete="off" type="number" [(ngModel)]="transactionAmmount" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Выберите дату</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="transactionDate" />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
   <div>
     <div class="d-inline float-right ml-1 mb-1">
       <a
         mat-mini-fab
         color="primary"
-        routerLink="/accounts"
+        routerLink="/transactions"
         aria-label="Отменить"
       >
         <mat-icon>close</mat-icon>
@@ -36,7 +46,7 @@
       <a
         mat-mini-fab
         color="primary"
-        routerLink="/accounts"
+        routerLink="/transactions"
         (click)="Add()"
         aria-label="Добавить"
       >

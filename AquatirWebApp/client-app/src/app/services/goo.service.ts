@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { transition } from '@angular/animations';
 
 export interface Goo {
   uGoo?: number;
@@ -8,10 +9,19 @@ export interface Goo {
 }
 
 export interface Account {
-  AccountId?: number;
+  accountId?: number;
   uGoo: number;
-  AccountName: string;
+  accountName: string;
   wrGoo?: Goo;
+}
+
+export interface Transaction {
+  transactionId?: number;
+  accountId: number;
+  accounts?: Account;
+  ammount: number;
+  io: boolean;
+  transactionDate: Date;
 }
 
 @Injectable({
@@ -44,5 +54,28 @@ export class GooService {
 
   deleteAccount(id: number): Observable<Account> {
     return this.http.delete<Account>(`${this.apiUrl}accounts/${id}`);
+  }
+
+  getTransactions(): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(this.apiUrl + 'transactions');
+  }
+
+  getTransactionById(id: number): Observable<Transaction> {
+    return this.http.get<Transaction>(`${this.apiUrl}transactions/${id}`);
+  }
+
+  postTransaction(transaction: Transaction): Observable<Transaction> {
+    return this.http.post<Transaction>(
+      this.apiUrl + 'transactions',
+      transaction
+    );
+  }
+
+  putTransaction(id: number, transaction: Transaction): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}transactions/${id}`, transaction);
+  }
+
+  deleteTransaction(id: number): Observable<Transaction> {
+    return this.http.delete<Transaction>(`${this.apiUrl}transactions/${id}`);
   }
 }
