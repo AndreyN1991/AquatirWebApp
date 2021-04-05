@@ -5,7 +5,10 @@ import { map, startWith } from 'rxjs/operators';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { zoomIn } from 'ng-animate';
 
-import { GooService, Goo, Account } from 'src/app/services/goo.service';
+import { GooService } from 'src/app/services/goo.service';
+import { Goo } from 'src/app/models/goo.model';
+import { Account } from 'src/app/models/account.model';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-acount',
@@ -27,7 +30,7 @@ export class AcountComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   dataOptions: Goo[];
 
-  constructor(private gooService: GooService) {}
+  constructor(private gooService: GooService, private accService: AccountService) {}
 
   ngOnInit(): void {
     this.gooService.getGoo().subscribe((result) => {
@@ -52,7 +55,7 @@ export class AcountComponent implements OnInit {
 
   Add(): void {
     if (this.accountName.trim() && this.myControl.value.trim()) {
-      this.gooService
+      this.accService
         .postAccount({
           uGoo: this.dataOptions.find((x) => x.cGoo === this.myControl.value)
             .uGoo,

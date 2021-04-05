@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GooService, Account } from 'src/app/services/goo.service';
+import { AccountService } from 'src/app/services/account.service';
+import { Account } from 'src/app/models/account.model';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -11,19 +12,19 @@ export class AccountsComponent implements OnInit {
   displayedColumns: string[] = ['accountId', 'uGoo', 'accountName', 'action'];
   dataSource: Observable<Account[]>;
 
-  constructor(private gooService: GooService) {}
+  constructor(private service: AccountService) {}
 
   ngOnInit(): void {
     this.refresh();
   }
 
   delete(id: number): void {
-    this.gooService.deleteAccount(id).subscribe(() => {
+    this.service.deleteAccount(id).subscribe(() => {
       this.refresh();
     });
   }
 
   refresh(): void {
-    this.dataSource = this.gooService.getAccounts();
+    this.dataSource = this.service.getAccounts();
   }
 }

@@ -1,11 +1,14 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { GooService, Transaction, Account } from 'src/app/services/goo.service';
+import { Account } from 'src/app/models/account.model';
+import { Transaction } from 'src/app/models/transaction.model';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { ActivatedRoute, Params } from '@angular/router';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { zoomIn } from 'ng-animate';
+import { AccountService } from 'src/app/services/account.service';
+import { TransactionService } from 'src/app/services/transaction.service';
 
 @Component({
   selector: 'app-transaction',
@@ -30,10 +33,10 @@ export class TransactionComponent implements OnInit {
   ioGroup: number = 0;
   transaction: Transaction;
 
-  constructor(private gooService: GooService, private route: ActivatedRoute) {}
+  constructor(private trService: TransactionService, private accService: AccountService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.gooService.getAccounts().subscribe((result) => {
+    this.accService.getAccounts().subscribe((result) => {
       this.dataOptions = result;
 
       this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -44,7 +47,7 @@ export class TransactionComponent implements OnInit {
 
     this.route.params.subscribe((params: Params) => {
       if (params.id) {
-        this.gooService.getTransactionById(params.id).subscribe((result) => {
+        this.trService.getTransactionById(params.id).subscribe((result) => {
           this.transaction = result;
           this.myControl.setValue(
             this.transaction.accountId +
@@ -74,7 +77,7 @@ export class TransactionComponent implements OnInit {
   Add(): void {
     if (true) {
       if (this.transaction) {
-        this.gooService
+        this.trService
           .putTransaction(this.transaction.transactionId, {
             transactionId: this.transaction.transactionId,
             accountId: this.dataOptions.find(
@@ -88,7 +91,7 @@ export class TransactionComponent implements OnInit {
             this.onAdd.emit(tr);
           });
       } else {
-        this.gooService
+        this.trService
           .postTransaction({
             accountId: this.dataOptions.find(
               (x) => x.accountId === +this.myControl.value.split(' ')[0]

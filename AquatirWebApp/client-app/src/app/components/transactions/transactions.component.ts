@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GooService, Transaction } from 'src/app/services/goo.service';
+import { GooService } from 'src/app/services/goo.service';
+import { Transaction } from 'src/app/models/transaction.model';
 import { Observable } from 'rxjs';
 
 @Component({

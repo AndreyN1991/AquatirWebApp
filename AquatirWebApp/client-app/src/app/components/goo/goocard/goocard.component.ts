@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { GooService, Goo } from 'src/app/services/goo.service';
+import { Goo } from 'src/app/models/goo.model';
+import { GooService } from 'src/app/services/goo.service';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { zoomIn } from 'ng-animate';
 
